@@ -39,11 +39,13 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
         run: |
           pnpm build
+          pnpm build:cli
           pnpm build:types
       - name: Publish
         run: pnpm publish --access public --no-git-checks
