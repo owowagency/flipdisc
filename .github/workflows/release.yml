@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dcarbone/install-jq-action@v3
       - id: check_tag
+        shell: bash
         run: |
+          set +e
           package_version=$(cat package.json | jq -r .version)
-          echo "extracted version: ${package_version}"
           echo "release_version=${package_version}" >> "$GITHUB_OUTPUT"
           git ls-remote --exit-code --tags origin "${package_version}"
           if [[ $? -eq 0 ]]; then
