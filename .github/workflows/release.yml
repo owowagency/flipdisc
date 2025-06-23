@@ -21,10 +21,11 @@ jobs:
           package_version=$(cat package.json | jq -r .version)
           echo "release_version=${package_version}" >> "$GITHUB_OUTPUT"
           git ls-remote --exit-code --tags origin "${package_version}"
-          if [[ $? -eq 0 ]]; then
-            echo "is_new_release=false" >> "$GITHUB_OUTPUT"
-          else
+          if [[ $? -ne 0 ]]; then
+            echo "Not a new release skipping"
             echo "is_new_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not a new release skipping"
           fi
   release:
     needs: check_version
