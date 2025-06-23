@@ -44,5 +44,5 @@ if (display.isDirty()) {
 ## Start flipdot emulator
 
 ```
-npx @owowagency/flipdisc --port=3000 --host=0.0.0.0
+pnpm dlx @owowagency/flipdisc --port=3000 --host=0.0.0.0
 ```
