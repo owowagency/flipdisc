@@ -1,6 +1,6 @@
 {
   "name": "@owowagency/flipdisc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -10,6 +10,11 @@
     }
   },
   "bin": "./dist/cli.js",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "start": "node dist/cli.js",
     "clean": "rm -rf ./dist",
