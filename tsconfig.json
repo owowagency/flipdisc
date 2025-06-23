@@ -18,5 +18,7 @@
     "declaration": true,
     "outDir": "./dist",
     "declarationDir": "./dist",
-  }
+    "rootDir": "./src"
+  },
+  "include": ["./src/**/*"]
 }
