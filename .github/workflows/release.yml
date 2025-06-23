@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check_version:
+    outputs:
+      release_version: ${{ steps.check_tag.outputs.release_version }}
+      is_new_release: ${{ steps.check_tag.outputs.is_new_release }}
+        
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: check_tag
+        run: |
+          package_version=$(cat package.json | jq -r .version)
+          echo "release_version=${package_version}" >> "$GITHUB_OUTPUT"
+          git ls-remote --exit-code --tags origin "${package_version}"
+          if [[ $? -eq 0 ]]; then
+            echo "is_new_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_new_release=true" >> "$GITHUB_OUTPUT"
+          fi
+  release:
+    needs: check_version
+    runs-on: ubuntu-latest
+    if: ${{ needs.check_version.outputs.is_new_release }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: |
+          pnpm build
+          pnpm build:types
+      - name: Publish
+        run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.check_version.outputs.release_version }}
+          name: Release ${{ needs.check_version.outputs.release_version }}
+    

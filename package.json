@@ -1,0 +1,32 @@
+{
+  "name": "@owowagency/flipdisc",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "flipdisplay": "dist/cli.js"
+  },
+  "scripts": {
+    "start": "node dist/cli.js",
+    "clean": "rm -rf ./dist",
+    "build": "esbuild src/index.ts --bundle --platform=node --packages=external --loader:.ttf=text --outfile=dist/index.js --format=esm",
+    "build:cli": "esbuild src/cli.ts --bundle --platform=node --packages=external --loader:.ttf=text --outfile=dist/cli.js --format=esm",
+    "build:watch": "esbuild src/index.ts --bundle --platform=node --packages=external --loader:.ttf=text --outfile=dist/index.js --format=esm --watch",
+    "build:types": "tsc",
+    "build:types:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "serialport": "^13.0.0"
+  }
+}
