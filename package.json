@@ -1,6 +1,6 @@
 {
   "name": "@owowagency/flipdisc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -10,7 +10,7 @@
     }
   },
   "bin": {
-    "flipdisplay": "dist/cli.js"
+    "flipdisplay": "./dist/cli.js"
   },
   "scripts": {
     "start": "node dist/cli.js",

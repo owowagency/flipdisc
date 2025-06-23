@@ -1,15 +1,9 @@
-# Flipdot Emulator
-
-## Start flipdot emulator
-
-```
-flipdot-emu --port=3000 --host=0.0.0.0
-```
+# Flipdisc
 
 ## Use flipdot in app
 
 ```ts
-import { Display } from '@owowagency/flipdot-emu';
+import { Display } from '@owowagency/flipdisc';
 import { createCanvas } from "canvas";
 
 const display = new Display({
@@ -45,4 +39,10 @@ if (display.isDirty()) {
     display.flush();
 }
 
+```
+
+## Start flipdot emulator
+
+```
+npx @owowagency/flipdisc --port=3000 --host=0.0.0.0
 ```
